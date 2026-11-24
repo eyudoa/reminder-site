@@ -1,2 +1,0 @@
-# reminder-site
-index
