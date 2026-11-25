@@ -6,71 +6,247 @@
     <title>Reminder - AutoIt Alarm Tool</title>
     <style>
         * {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 0 16px;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
         }
         body {
-            background-color: #0c0c0c;
-            color: #ffffff;
+            background-color: #0d1117;
+            color: #f0f6fc;
             line-height: 1.7;
-            padding: 30px 0;
+            position: relative;
+            overflow-x: hidden;
         }
-        .section {
-            margin-bottom: 60px;
-            padding: 24px;
-            border: 1px solid #222;
-            border-radius: 12px;
+        /* 粒子星網背景，固定在最底層 */
+        #canvas-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0;
+            background: linear-gradient(160deg, #0a1628 0%, #0d1b33 55%, #0a1424 100%);
         }
-        h1, h2 {
-            color: #60a5fa;
+        nav {
+            position: sticky;
+            top: 0;
+            background: rgba(13, 27, 51, 0.55);
+            backdrop-filter: blur(6px);
+            padding: 14px 24px;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            border-bottom: 1px solid rgba(48, 54, 61, 0.6);
+            z-index: 10;
+        }
+        nav a {
+            color: #58a6ff;
+            text-decoration: none;
+            font-size: 15px;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        section {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 60px 24px;
+            background: transparent;
+        }
+        h1 {
+            font-size: 2.4rem;
             margin-bottom: 16px;
+            color: #ffffff;
+        }
+        h2 {
+            font-size: 1.6rem;
+            margin-bottom: 20px;
+            color: #58a6ff;
+            border-bottom: 1px solid rgba(48, 54, 61, 0.6);
+            padding-bottom: 8px;
+        }
+        p {
+            margin-bottom: 16px;
+            color: #c9d1d9;
         }
         .btn {
             display: inline-block;
-            background: #2563eb;
-            color: white;
-            padding: 10px 18px;
+            background: #238636;
+            color: #ffffff;
+            padding: 10px 20px;
             border-radius: 8px;
             text-decoration: none;
             font-weight: bold;
-            margin: 8px 4px;
+            margin: 8px 8px 8px 0;
+        }
+        .btn.secondary {
+            background: rgba(33, 38, 45, 0.6);
+            border: 1px solid #30363d;
         }
         .btn:hover {
-            background: #1d4ed8;
+            opacity: 0.9;
         }
-        ul {
-            padding-left: 22px;
+        ol, ul {
+            padding-left: 24px;
+            margin-bottom: 16px;
+            color: #c9d1d9;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        code {
+            background: rgba(22, 27, 34, 0.55);
+            border: 1px solid rgba(48, 54, 61, 0.6);
+            border-radius: 6px;
+            padding: 2px 8px;
+            color: #7ee787;
+            font-size: 0.9rem;
         }
         footer {
-            margin-top: 40px;
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 30px 24px 50px;
             text-align: center;
-            color: #999;
+            color: #8b949e;
+            border-top: 1px solid rgba(48, 54, 61, 0.6);
+        }
+        footer a {
+            color: #58a6ff;
+            text-decoration: none;
         }
     </style>
 </head>
 <body>
-    <div class="section">
+
+    <canvas id="canvas-bg"></canvas>
+
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#download">Download</a>
+        <a href="#autoit">AutoIt</a>
+        <a href="#compile">Compile</a>
+    </nav>
+
+    <!-- ===== Home ===== -->
+    <section id="home">
         <h1>Reminder</h1>
-        <p><!-- You can write your introduction text here later --></p>
-    </div>
+        <p>A lightweight Windows reminder / alarm tool written in AutoIt.</p>
+        <!-- TODO: replace this paragraph with your own introduction later -->
+        <p>Project introduction goes here.</p>
+        <a class="btn" href="https://github.com/eyudoa/Reminder/releases" target="_blank">Download Releases</a>
+        <a class="btn secondary" href="https://github.com/eyudoa/Reminder" target="_blank">View Source Code</a>
+    </section>
 
-    <div class="section">
+    <!-- ===== Download ===== -->
+    <section id="download">
         <h2>Download</h2>
-        <a class="btn" href="https://github.com/eyudoa/Reminder/releases/tag/v1.0.0" target="_blank">Get from Releases</a>
-    </div>
+        <ol>
+            <li>Go to the <a href="https://github.com/eyudoa/Reminder/releases" target="_blank">Releases page</a>.</li>
+            <li>Download the latest pre-release source package.</li>
+            <li>Extract the archive to any folder on your computer.</li>
+            <li>Keep <code>WorkLifeApp.au3</code> and <code>RunReminder.bat</code> in the same folder.</li>
+        </ol>
+    </section>
 
-    <div class="section">
-        <h2>AutoIt Official Site</h2>
-        <a class="btn" href="https://www.autoitscript.com/site/" target="_blank">Download AutoIt3</a>
-    </div>
+    <!-- ===== AutoIt official website ===== -->
+    <section id="autoit">
+        <h2>AutoIt Official Website</h2>
+        <p>This project is built with AutoIt. You need AutoIt3 installed to run or compile the script.</p>
+        <a class="btn" href="https://www.autoitscript.com/site/" target="_blank">Visit AutoIt Official Website</a>
+    </section>
 
-    <div class="section">
-        <h2>Compile Guide</h2>
-        <ul>
-            <li>Install AutoIt3 on your Windows computer.</li>
-            <li>Open your <code>WorkLifeApp.au3</code> script in SciTE editor.</li>
-            <li>You can compile in two ways:
-                <ul>
-                    <li>Click menu
+    <!-- ===== Compile tutorial ===== -->
+    <section id="compile">
+        <h2>Compile Tutorial</h2>
+        <ol>
+            <li>Install AutoIt3 from the official website above.</li>
+            <li>Open the <code>WorkLifeApp.au3</code> script in the SciTE editor that comes with AutoIt.</li>
+            <li>On the top menu bar, click <strong>Tools</strong>, then choose <strong>Compile Script</strong> (shortcut: <code>F7</code>).</li>
+            <li>Alternatively, right-click the <code>.au3</code> file in File Explorer and choose <strong>Compile script</strong> from the context menu.</li>
+            <li>The compiled <code>.exe</code> file will be created in the same folder as the script.</li>
+        </ol>
+    </section>
+
+    <footer>
+        <p>Licensed under the MIT License.</p>
+        <p><a href="https://github.com/eyudoa" target="_blank">My GitHub Profile</a></p>
+    </footer>
+
+    <script>
+        const canvas = document.getElementById("canvas-bg");
+        const ctx = canvas.getContext("2d");
+        let w = canvas.width = window.innerWidth;
+        let h = canvas.height = window.innerHeight;
+
+        const count = 80;
+        const points = [];
+        const linkDistance = 120;
+
+        class Point {
+            constructor() {
+                this.x = Math.random() * w;
+                this.y = Math.random() * h;
+                this.vx = (Math.random() - 0.5) * 0.6;
+                this.vy = (Math.random() - 0.5) * 0.6;
+            }
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                if (this.x < 0 || this.x > w) this.vx *= -1;
+                if (this.y < 0 || this.y > h) this.vy *= -1;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, 2, 0, Math.PI * 2);
+                ctx.fillStyle = "#38bdf8";
+                ctx.fill();
+            }
+        }
+
+        for (let i = 0; i < count; i++) {
+            points.push(new Point());
+        }
+
+        function drawLines() {
+            for (let i = 0; i < points.length; i++) {
+                for (let j = i + 1; j < points.length; j++) {
+                    const dx = points[i].x - points[j].x;
+                    const dy = points[i].y - points[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < linkDistance) {
+                        ctx.beginPath();
+                        ctx.moveTo(points[i].x, points[i].y);
+                        ctx.lineTo(points[j].x, points[j].y);
+                        ctx.strokeStyle = `rgba(56, 189, 248, ${1 - dist / linkDistance})`;
+                        ctx.lineWidth = 0.8;
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, w, h);
+            for (let p of points) {
+                p.update();
+                p.draw();
+            }
+            drawLines();
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        window.addEventListener("resize", () => {
+            w = canvas.width = window.innerWidth;
+            h = canvas.height = window.innerHeight;
+        });
+    </script>
+
+</body>
+</html>
+
