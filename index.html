@@ -48,6 +48,9 @@
         nav a:hover {
             text-decoration: underline;
         }
+        nav a.active {
+            color: #ffffff;
+        }
         section {
             position: relative;
             z-index: 1;
@@ -73,7 +76,9 @@
             color: #c9d1d9;
         }
         .btn {
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
             background: #238636;
             color: #ffffff;
             padding: 10px 20px;
@@ -88,6 +93,12 @@
         }
         .btn:hover {
             opacity: 0.9;
+        }
+        .btn svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+            flex-shrink: 0;
         }
         ol, ul {
             padding-left: 24px;
@@ -120,6 +131,42 @@
             text-decoration: none;
         }
 
+        /* ===== 視圖切換：同一頁內互不相干的分頁 ===== */
+        .view {
+            display: none;
+        }
+        .view.active {
+            display: block;
+        }
+
+        /* ===== Docs 內部子標籤 ===== */
+        .docs-tabs {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 24px;
+            border-bottom: 1px solid rgba(48, 54, 61, 0.6);
+            flex-wrap: wrap;
+        }
+        .doc-tab {
+            background: transparent;
+            border: none;
+            color: #8b949e;
+            padding: 10px 16px;
+            font-size: 1rem;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+        }
+        .doc-tab.active {
+            color: #58a6ff;
+            border-bottom-color: #58a6ff;
+        }
+        .doc-panel {
+            display: none;
+        }
+        .doc-panel.active {
+            display: block;
+        }
+
         /* ===== 入場動畫：依序上浮淡入 ===== */
         .reveal {
             opacity: 0;
@@ -145,51 +192,86 @@
     <canvas id="canvas-bg"></canvas>
 
     <nav>
-        <a href="#home">Home</a>
-        <a href="#download">Download</a>
-        <a href="#autoit">AutoIt</a>
-        <a href="#compile">Compile</a>
+        <a href="#home" data-view="home" class="active">Home</a>
+        <a href="#docs" data-view="docs">Docs</a>
     </nav>
 
-    <!-- ===== Home ===== -->
-    <section id="home">
-        <h1>Reminder</h1>
-        <p>A lightweight Windows reminder / alarm tool written in AutoIt.</p>
-        <!-- TODO: replace this paragraph with your own introduction later -->
-        <p>Project introduction goes here.</p>
-        <a class="btn" href="https://github.com/eyudoa/Reminder/releases" target="_blank">Download Releases</a>
-        <a class="btn secondary" href="https://github.com/eyudoa/Reminder" target="_blank">View Source Code</a>
-    </section>
+    <!-- ===== 主視圖：Home / Download / AutoIt / Compile ===== -->
+    <div class="view active" id="view-home">
 
-    <!-- ===== Download ===== -->
-    <section id="download">
-        <h2>Download</h2>
-        <ol>
-            <li>Go to the <a href="https://github.com/eyudoa/Reminder/releases" target="_blank">Releases page</a>.</li>
-            <li>Download the latest pre-release source package.</li>
-            <li>Extract the archive to any folder on your computer.</li>
-            <li>Keep <code>WorkLifeApp.au3</code> and <code>RunReminder.bat</code> in the same folder.</li>
-        </ol>
-    </section>
+        <!-- ===== Home ===== -->
+        <section id="home">
+            <h1>Reminder</h1>
+            <p>A lightweight Windows reminder / alarm tool written in AutoIt.</p>
+            <!-- TODO: replace this paragraph with your own introduction later -->
+            <p>Project introduction goes here.</p>
+            <a class="btn" href="https://github.com/eyudoa/Reminder/releases" target="_blank">Download Releases</a>
+            <a class="btn secondary" href="https://github.com/eyudoa/Reminder" target="_blank">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                </svg>
+                View Source Code
+            </a>
+        </section>
 
-    <!-- ===== AutoIt official website ===== -->
-    <section id="autoit">
-        <h2>AutoIt Official Website</h2>
-        <p>This project is built with AutoIt. You need AutoIt3 installed to run or compile the script.</p>
-        <a class="btn" href="https://www.autoitscript.com/site/" target="_blank">Visit AutoIt Official Website</a>
-    </section>
+        <!-- ===== Download ===== -->
+        <section id="download">
+            <h2>Download</h2>
+            <ol>
+                <li>Go to the <a href="https://github.com/eyudoa/Reminder/releases" target="_blank">Releases page</a>.</li>
+                <li>Download the latest pre-release source package.</li>
+                <li>Extract the archive to any folder on your computer.</li>
+                <li>Keep <code>WorkLifeApp.au3</code> and <code>RunReminder.bat</code> in the same folder.</li>
+            </ol>
+        </section>
 
-    <!-- ===== Compile tutorial ===== -->
-    <section id="compile">
-        <h2>Compile Tutorial</h2>
-        <ol>
-            <li>Install AutoIt3 from the official website above.</li>
-            <li>Open the <code>WorkLifeApp.au3</code> script in the SciTE editor that comes with AutoIt.</li>
-            <li>On the top menu bar, click <strong>Tools</strong>, then choose <strong>Compile Script</strong> (shortcut: <code>F7</code>).</li>
-            <li>Alternatively, right-click the <code>.au3</code> file in File Explorer and choose <strong>Compile script</strong> from the context menu.</li>
-            <li>The compiled <code>.exe</code> file will be created in the same folder as the script.</li>
-        </ol>
-    </section>
+        <!-- ===== AutoIt official website ===== -->
+        <section id="autoit">
+            <h2>AutoIt Official Website</h2>
+            <p>This project is built with AutoIt. You need AutoIt3 installed to run or compile the script.</p>
+            <a class="btn" href="https://www.autoitscript.com/site/" target="_blank">Visit AutoIt Official Website</a>
+        </section>
+
+        <!-- ===== Compile tutorial ===== -->
+        <section id="compile">
+            <h2>Compile Tutorial</h2>
+            <ol>
+                <li>Install AutoIt3 from the official website above.</li>
+                <li>Open the <code>WorkLifeApp.au3</code> script in the SciTE editor that comes with AutoIt.</li>
+                <li>On the top menu bar, click <strong>Tools</strong>, then choose <strong>Compile Script</strong> (shortcut: <code>F7</code>).</li>
+                <li>Alternatively, right-click the <code>.au3</code> file in File Explorer and choose <strong>Compile script</strong> from the context menu.</li>
+                <li>The compiled <code>.exe</code> file will be created in the same folder as the script.</li>
+            </ol>
+        </section>
+    </div>
+
+    <!-- ===== 視圖：Docs（內含部署教程 + 介紹） ===== -->
+    <div class="view" id="view-docs">
+        <section id="docs">
+            <div class="docs-tabs">
+                <button class="doc-tab active" data-tab="deployment">Deployment Guide</button>
+                <button class="doc-tab" data-tab="introduction">Introduction</button>
+            </div>
+
+            <!-- 預設打開：部署教程 -->
+            <div class="doc-panel active" id="panel-deployment">
+                <h2>Deployment Guide</h2>
+                <ol>
+                    <li>Install AutoIt3 from the official website above.</li>
+                    <li>Open the <code>WorkLifeApp.au3</code> script in the SciTE editor that comes with AutoIt.</li>
+                    <li>On the top menu bar, click <strong>Tools</strong>, then choose <strong>Compile Script</strong> (shortcut: <code>F7</code>).</li>
+                    <li>Alternatively, right-click the <code>.au3</code> file in File Explorer and choose <strong>Compile script</strong> from the context menu.</li>
+                    <li>The compiled <code>.exe</code> file will be created in the same folder as the script.</li>
+                </ol>
+            </div>
+
+            <!-- 介紹 -->
+            <div class="doc-panel" id="panel-introduction">
+                <h2>Introduction</h2>
+                <p>A simple reminder tool. Set your time, and it will alert you when the time arrives.</p>
+            </div>
+        </section>
+    </div>
 
     <footer>
         <p>Licensed under the MIT License.</p>
@@ -265,21 +347,58 @@
             h = canvas.height = window.innerHeight;
         });
 
-        /* ===== 入場動畫：區塊內元素依序上浮淡入 ===== */
+        /* ===== 入場動畫：依序上浮淡入 ===== */
         const revealTargets = document.querySelectorAll(
-            'section > h1, section > h2, section > p, section > .btn, section > ol, footer > p'
+            'section h1, section h2, section p, section .btn, section ol, footer p'
         );
 
         revealTargets.forEach(el => {
             el.classList.add("reveal");
         });
 
-        // 同一區塊內依序延遲，先出一個、再下一個
-        document.querySelectorAll("section, footer").forEach(container => {
+        function animateReveal(container) {
             const items = Array.from(container.querySelectorAll(".reveal"));
             items.forEach((el, index) => {
+                el.classList.remove("revealed");
                 el.style.transitionDelay = (index * 120) + "ms";
+                setTimeout(() => el.classList.add("revealed"), 30);
             });
+        }
+
+        /* ===== 外層視圖切換：Home / Docs ===== */
+        const navLinks = document.querySelectorAll("nav a[data-view]");
+        const views = document.querySelectorAll(".view");
+
+        function switchView(name) {
+            navLinks.forEach(a => a.classList.toggle("active", a.dataset.view === name));
+            views.forEach(v => v.classList.toggle("active", v.id === "view-" + name));
+            window.scrollTo({ top: 0, behavior: "auto" });
+
+            const activeView = document.getElementById("view-" + name);
+            animateReveal(activeView);
+        }
+
+        navLinks.forEach(link => {
+            link.addEventListener("click", (e) => {
+                e.preventDefault();
+                switchView(link.dataset.view);
+            });
+        });
+
+        /* ===== Docs 內部子標籤切換 ===== */
+        const docTabs = document.querySelectorAll(".doc-tab");
+        const docPanels = document.querySelectorAll(".doc-panel");
+
+        function switchTab(tab) {
+            docTabs.forEach(t => t.classList.toggle("active", t.dataset.tab === tab));
+            docPanels.forEach(p => p.classList.toggle("active", p.id === "panel-" + tab));
+
+            const activePanel = document.getElementById("panel-" + tab);
+            animateReveal(activePanel);
+        }
+
+        docTabs.forEach(tab => {
+            tab.addEventListener("click", () => switchTab(tab.dataset.tab));
         });
 
         const revealObserver = new IntersectionObserver((entries) => {
@@ -292,6 +411,9 @@
         }, { threshold: 0.15, rootMargin: "0px 0px -40px 0px" });
 
         revealTargets.forEach(el => revealObserver.observe(el));
+
+        // 首次載入：主視圖入場，Docs 預設打開部署教程
+        switchView("home");
     </script>
 
 </body>
